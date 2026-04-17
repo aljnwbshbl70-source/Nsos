@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Small Developer | Private System</title>
+    <title>The Small Developer | Ultra Stable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
@@ -12,11 +12,10 @@
             color: #f1f5f9; 
             font-family: 'Tajawal', sans-serif;
             min-height: 100vh;
-            margin: 0;
         }
         .glass-card { 
             background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
         }
@@ -27,57 +26,59 @@
             border-radius: 12px;
         }
         pre { white-space: pre-wrap; word-break: break-all; font-family: monospace; }
-        .secret-footer { cursor: pointer; opacity: 0.3; transition: 0.3s; position: fixed; bottom: 20px; right: 20px; font-size: 10px; }
+        .secret-footer { cursor: pointer; opacity: 0.3; transition: 0.3s; position: fixed; bottom: 20px; right: 20px; font-size: 10px; z-index: 100; }
         .secret-footer:hover { opacity: 1; color: #38bdf8; }
+        .active-btn { transform: scale(0.98); transition: 0.1s; }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
 
     <header class="w-full max-w-2xl text-center py-6">
         <h1 class="text-2xl font-bold text-white tracking-widest">🇾🇪야미, 네 삼촌|  |</h1>
-        <p id="userGreeting" class="text-blue-400 text-sm mt-2 font-medium">أهلاً بك في فضاء يامي السري ✨</p>
+        <p id="userGreeting" class="text-blue-400 text-sm mt-2 font-medium">نظام يامي السحابي ⚡</p>
     </header>
 
     <main class="w-full max-w-2xl">
         
         <div id="homeView" class="text-center py-20">
-            <div class="text-6xl mb-4">🛡️</div>
-            <h2 class="text-gray-400">نظام مشفر بالكامل</h2>
-            <p class="text-xs text-gray-600 mt-2">يرجى استخدام الرابط المباشر للوصول</p>
+            <h2 class="text-gray-400">🛡️ بانتظار فك التشفير</h2>
+            <p class="text-[10px] text-gray-600 mt-2 italic">استخدم الرابط المباشر أو ادخل كمدير</p>
         </div>
 
         <div id="contentView" class="hidden glass-card p-6 shadow-2xl">
             <h2 id="noteTitle" class="text-xl font-bold mb-2 text-white"></h2>
             <div id="noteDesc" class="text-gray-400 text-sm mb-4 leading-relaxed"></div>
             
-            <a id="externalLinkBtn" target="_blank" rel="noopener noreferrer" class="hidden inline-flex items-center justify-center w-full mb-6 bg-slate-800 hover:bg-slate-700 text-blue-300 py-3 rounded-xl text-sm border border-blue-500/20 transition cursor-pointer">
+            <button id="externalLinkBtn" class="hidden w-full mb-6 bg-slate-800 hover:bg-slate-700 text-blue-300 py-3 rounded-xl text-sm border border-blue-500/20 transition-all font-bold">
                 🌐 الانتقال للرابط المرفق
-            </a>
+            </button>
             
             <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 mb-6">
                 <pre id="noteContent" class="text-blue-100 text-sm leading-6 min-h-[150px]"></pre>
             </div>
-            <button onclick="copyContent('noteContent')" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-bold transition-all active:scale-95 shadow-lg">نسخ النص</button>
+            <button onclick="copyContent('noteContent')" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-bold shadow-lg shadow-blue-900/40 transition-all">نسخ النص</button>
         </div>
 
-        <div id="adminPanel" class="hidden glass-card p-6 md:p-8 border-t-4 border-blue-500">
-            <h3 class="text-white font-bold mb-6">⚙️ لوحة الإدارة</h3>
-            <div class="space-y-4 mb-10">
+        <div id="adminPanel" class="hidden glass-card p-6 md:p-8 border-t-4 border-blue-500 shadow-2xl mb-10">
+            <h3 class="text-white font-bold mb-6">⚙️ إدارة النظام</h3>
+            <div class="space-y-4">
                 <input type="text" id="titleInput" placeholder="العنوان" class="w-full input-field p-3 text-sm">
                 <textarea id="descInput" placeholder="الشرح" class="w-full input-field p-3 text-sm h-20"></textarea>
                 <input type="url" id="urlInput" placeholder="رابط الزر (اختياري)" class="w-full input-field p-3 text-sm">
                 <textarea id="contentInput" placeholder="المحتوى..." class="w-full input-field p-3 text-sm h-40"></textarea>
-                <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold">نشر</button>
+                <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold transition">نشر</button>
+                
                 <div id="successArea" class="hidden p-4 bg-green-900/20 border border-green-500/30 rounded-xl">
-                    <p class="text-[10px] text-green-400 mb-2 font-bold text-center">✅ تم الحفظ بنجاح!</p>
+                    <p class="text-[10px] text-green-400 mb-2 font-bold text-center">✅ تم النشر بنجاح!</p>
                     <div class="flex gap-2">
                         <input type="text" id="finalLink" readonly class="flex-grow bg-transparent text-[10px] text-blue-300 outline-none">
                         <button onclick="copyContent('finalLink')" class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg text-[10px]">نسخ</button>
                     </div>
                 </div>
             </div>
-            <div class="pt-6 border-t border-slate-700">
-                <p class="text-xs text-blue-400 mb-4 font-bold uppercase">قائمة الملفات</p>
+            
+            <div class="pt-6 border-t border-slate-700 mt-8">
+                <p class="text-xs text-blue-400 mb-4 font-bold uppercase">المحفوظات</p>
                 <div id="deleteList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
             </div>
         </div>
@@ -105,7 +106,7 @@
         const colRef = collection(db, "notes");
         const AUTH_KEY = "🇾🇪*야미, 네 삼촌|  |يامي عمكم*";
 
-        // إظهار المحتوى بدون تحديث الصفحة
+        // دالة عرض المحتوى: لا تلمس الرابط العلوي (URL Hash) لضمان الاستقرار
         async function showContent(id) {
             if(!id) return;
             const snap = await getDoc(doc(db, "notes", id));
@@ -117,7 +118,11 @@
                 
                 const linkBtn = document.getElementById('externalLinkBtn');
                 if(d.url) {
-                    linkBtn.onclick = () => window.open(d.url, '_blank');
+                    // استخدام Event Listener بدلاً من href المباشر لمنع الارتداد في كروم
+                    linkBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.open(d.url, '_blank');
+                    };
                     linkBtn.classList.remove('hidden');
                 } else {
                     linkBtn.classList.add('hidden');
@@ -126,6 +131,77 @@
                 document.getElementById('contentView').classList.remove('hidden');
                 document.getElementById('homeView').classList.add('hidden');
                 document.getElementById('adminPanel').classList.add('hidden');
+            }
+        }
+
+        window.openAdmin = () => {
+            const pass = prompt("رمز الدخول:");
+            if(pass === AUTH_KEY) {
+                document.getElementById('adminPanel').classList.remove('hidden');
+                document.getElementById('contentView').classList.add('hidden');
+                document.getElementById('homeView').classList.add('hidden');
+                refreshDeleteList();
+            }
+        };
+
+        async function refreshDeleteList() {
+            const container = document.getElementById('deleteList');
+            const snap = await getDocs(colRef);
+            container.innerHTML = '';
+            snap.forEach(item => {
+                const d = item.data();
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center bg-slate-900/50 p-3 rounded-xl border border-slate-800 cursor-pointer hover:border-blue-500/50 transition";
+                div.innerHTML = `<span class="text-xs truncate max-w-[140px]">${d.title}</span>`;
+                
+                const delBtn = document.createElement('button');
+                delBtn.className = "text-[10px] text-red-500 bg-red-950/30 px-3 py-1 rounded-lg border border-red-900/20";
+                delBtn.innerText = "حذف";
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if(confirm("حذف؟")) {
+                        deleteDoc(doc(db, "notes", item.id)).then(() => refreshDeleteList());
+                    }
+                };
+                
+                div.onclick = () => showContent(item.id);
+                div.appendChild(delBtn);
+                container.appendChild(div);
+            });
+        }
+
+        window.saveNote = async () => {
+            const title = document.getElementById('titleInput').value;
+            const desc = document.getElementById('descInput').value;
+            const url = document.getElementById('urlInput').value;
+            const content = document.getElementById('contentInput').value;
+
+            if(!title || !content) return alert("أكمل البيانات");
+
+            const docRef = await addDoc(colRef, { title, desc, url, content });
+            document.querySelectorAll('.input-field').forEach(i => i.value = '');
+            document.getElementById('finalLink').value = window.location.origin + window.location.pathname + "#" + docRef.id;
+            document.getElementById('successArea').classList.remove('hidden');
+            refreshDeleteList();
+        };
+
+        window.copyContent = (elementId) => {
+            const el = document.getElementById(elementId);
+            const text = el.tagName === 'INPUT' ? el.value : el.innerText;
+            navigator.clipboard.writeText(text);
+            alert("تم النسخ ✅");
+        };
+
+        // فحص الرابط عند الفتح فقط
+        const initialId = window.location.hash.substring(1);
+        if(initialId) showContent(initialId);
+
+        const greets = ["أهلاً بك في نظام يامي الخاص ✨", "نورت الموقع يا مطور 👑", "المحتوى بانتظارك.. تفضل 🚀"];
+        document.getElementById('userGreeting').innerText = greets[Math.floor(Math.random() * greets.length)];
+    </script>
+</body>
+</html>
+document.getElementById('adminPanel').classList.add('hidden');
             }
         }
 
