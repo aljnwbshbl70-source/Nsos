@@ -6,99 +6,82 @@
     <title>🇾🇪야미, 네 삼촌|  |</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
         body { 
-            background-color: #000000; 
-            color: #ffffff; 
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background: radial-gradient(circle at top, #1e293b, #0f172a); 
+            color: #f1f5f9; 
+            font-family: 'Tajawal', sans-serif;
             min-height: 100vh;
         }
-        .main-card { 
-            background: linear-gradient(145deg, #0f0f0f, #050505);
-            border: 1px solid #1a1a1a;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .glass-card { 
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
         }
-        .input-style {
-            background: #0a0a0a !important;
-            border: 1px solid #222 !important;
+        .input-field {
+            background: rgba(15, 23, 42, 0.8) !important;
+            border: 1px solid #334155 !important;
             color: #fff !important;
-            transition: 0.3s;
+            border-radius: 12px;
         }
-        .input-style:focus { border-color: #0070f3 !important; ring: 1px #0070f3; }
-        .secret-footer { opacity: 0.05; cursor: pointer; transition: 0.5s; }
-        .secret-footer:hover { opacity: 1; color: #0070f3; }
-        pre { direction: ltr; text-align: left; background: #020202; border: 1px solid #111; }
+        .link-text a { color: #38bdf8; text-decoration: underline; }
+        pre { white-space: pre-wrap; word-break: break-all; font-family: monospace; }
+        .secret-footer { cursor: pointer; opacity: 0.4; transition: 0.3s; position: fixed; bottom: 20px; right: 20px; font-size: 10px; }
+        .secret-footer:hover { opacity: 1; color: #38bdf8; }
     </style>
 </head>
-<body class="flex flex-col items-center p-4">
+<body class="p-4 md:p-8 flex flex-col items-center">
 
-    <header class="w-full max-w-2xl py-12 text-center">
-        <h1 class="text-2xl font-bold tracking-widest mb-2">🇾🇪야미, 네 삼촌|  |</h1>
-        <div class="h-[1px] w-24 bg-blue-600 mx-auto opacity-50"></div>
+    <header class="w-full max-w-2xl text-center py-6">
+        <h1 class="text-2xl font-bold text-white tracking-widest">🇾🇪야미, 네 삼촌|  |</h1>
+        <p id="userGreeting" class="text-blue-400 text-sm mt-2 font-medium"></p>
     </header>
 
-    <main class="w-full max-w-2xl flex-grow">
-        
-        <div id="welcomeView" class="py-20 text-center">
-            <h2 class="text-gray-500 font-light text-lg">نظام التشفير الخاص</h2>
-            <p class="text-xs text-gray-700 mt-2">يرجى الدخول عبر الرابط المباشر</p>
-        </div>
-
-        <div id="contentView" class="hidden main-card rounded-2xl p-6 md:p-8">
-            <div class="flex justify-between items-center mb-6">
-                <span class="text-[10px] font-bold text-blue-500 border border-blue-500/30 px-2 py-1 rounded">PRIVATE ACCESS</span>
-                <span id="noteDate" class="text-[10px] text-gray-600"></span>
-            </div>
-            <h2 id="noteTitle" class="text-xl font-bold mb-4"></h2>
-            <p id="noteDesc" class="text-gray-400 text-sm mb-6 leading-relaxed"></p>
-            <pre id="noteContent" class="p-4 rounded-lg text-green-500 text-xs overflow-x-auto mb-6"></pre>
-            <button onclick="copyContent()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition">نسخ النص</button>
-        </div>
-
-        <div id="adminPanel" class="hidden main-card rounded-2xl p-6 md:p-8 animate-in fade-in zoom-in duration-300">
-            <h3 class="text-blue-500 font-bold mb-6 border-b border-gray-900 pb-2">لوحة الإدارة</h3>
+    <main class="w-full max-w-2xl">
+        <div id="contentView" class="hidden glass-card p-6 shadow-2xl animate-in fade-in duration-500">
+            <h2 id="noteTitle" class="text-xl font-bold mb-2 text-white"></h2>
+            <div id="noteDesc" class="link-text text-gray-400 text-sm mb-6 pb-4 border-b border-gray-700/50 leading-relaxed"></div>
             
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] text-gray-500 block mb-1">العنوان</label>
-                    <input type="text" id="titleInput" class="w-full input-style p-3 rounded-lg text-sm">
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-500 block mb-1">الشرح</label>
-                    <textarea id="descInput" class="w-full input-style p-3 rounded-lg text-sm"></textarea>
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-500 block mb-1">المحتوى</label>
-                    <textarea id="contentInput" rows="5" class="w-full input-style p-3 rounded-lg text-sm"></textarea>
-                </div>
-                <button onclick="saveNote()" class="w-full bg-green-700 hover:bg-green-600 py-3 rounded-lg font-bold transition">حفظ ونشر</button>
+            <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700 mb-6">
+                <pre id="noteContent" class="text-blue-100 text-sm leading-6 min-h-[150px]"></pre>
             </div>
-
-            <div class="mt-10 pt-6 border-t border-gray-900">
-                <p class="text-[10px] text-red-500 mb-2">منطقة الحذف</p>
-                <div class="flex gap-2">
-                    <input type="text" id="deleteId" placeholder="ID المستند" class="flex-grow input-style p-2 rounded-lg text-xs">
-                    <button onclick="deleteNote()" class="bg-red-900/20 text-red-500 px-4 py-2 rounded-lg text-xs border border-red-900/30">حذف</button>
-                </div>
-            </div>
-
-            <div id="linkOutput" class="hidden mt-6 p-4 bg-blue-900/10 border border-blue-500/20 rounded-xl">
-                <p class="text-[10px] text-blue-400 mb-2 font-bold">تم التوليد:</p>
-                <input type="text" id="finalLink" readonly class="w-full bg-transparent text-xs text-blue-200 outline-none">
-            </div>
+            <button onclick="copyContent('noteContent')" class="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-bold shadow-lg shadow-blue-900/40 transition-all active:scale-95">نسخ النص</button>
         </div>
 
+        <div id="adminPanel" class="hidden glass-card p-6 md:p-8 border-t-4 border-blue-500 shadow-2xl">
+            <h3 class="text-white font-bold mb-6 flex items-center gap-2">⚙️ لوحة الإدارة</h3>
+            
+            <div class="space-y-4 mb-10">
+                <input type="text" id="titleInput" placeholder="عنوان النص" class="w-full input-field p-3 text-sm">
+                <textarea id="descInput" placeholder="الشرح (الروابط ستتحول لزرقاء تلقائياً)" class="w-full input-field p-3 text-sm h-20"></textarea>
+                <textarea id="contentInput" placeholder="ضع النص هنا..." class="w-full input-field p-3 text-sm h-40"></textarea>
+                <button onclick="saveNote()" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl font-bold transition">حفظ ونشر</button>
+                
+                <div id="successArea" class="hidden p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
+                    <p class="text-xs text-green-400 mb-2 font-bold text-center">✅ تم الإضافة بنجاح!</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="finalLink" readonly class="flex-grow bg-transparent text-[10px] text-blue-300 outline-none">
+                        <button onclick="copyContent('finalLink')" class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-lg text-[10px]">نسخ</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-700">
+                <p class="text-xs text-blue-400 mb-4 font-bold uppercase tracking-wider">قائمة النصوص (للحذف)</p>
+                <div id="deleteList" class="space-y-2 max-h-60 overflow-y-auto pr-2">
+                    </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="w-full py-10 text-center">
-        <p onclick="openAdmin()" class="secret-footer text-[10px]">
-            🇾🇪야미, 네 삼촌|  |يامي
-        </p>
+    <footer onclick="openAdmin()" class="secret-footer">
+        🇾🇪야미, 네 삼촌|  |يامي
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, doc, getDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAlxh6M9HWFFyCsd1MpGSj-PfwcF5h_9DQ",
@@ -114,56 +97,94 @@
         const colRef = collection(db, "notes");
         const AUTH_KEY = "🇾🇪*야미, 네 삼촌|  |يامي عمكم*";
 
-        window.openAdmin = () => {
-            if(prompt("رمز الوصول:") === AUTH_KEY) {
+        // تحويل الروابط في النص
+        function linkify(text) {
+            const urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+            return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+        }
+
+        // ترحيب المستخدم
+        const greetings = ["أهلاً بك في فضاء يامي السري 🚀", "مرحباً بك.. المحتوى بانتظارك ✨", "نورت الموقع يا وحش 👑"];
+        document.getElementById('userGreeting').innerText = greetings[Math.floor(Math.random() * greetings.length)];
+
+        // فتح الإدارة وجلب القائمة
+        window.openAdmin = async () => {
+            if(prompt("رمز المدير:") === AUTH_KEY) {
                 document.getElementById('adminPanel').classList.remove('hidden');
-                document.getElementById('welcomeView').classList.add('hidden');
+                document.getElementById('contentView').classList.add('hidden');
+                refreshDeleteList();
             }
         };
 
+        // جلب قائمة النصوص للحذف
+        async function refreshDeleteList() {
+            const container = document.getElementById('deleteList');
+            container.innerHTML = '<p class="text-gray-600 text-[10px]">جاري التحميل...</p>';
+            const snap = await getDocs(colRef);
+            container.innerHTML = '';
+            snap.forEach(item => {
+                const d = item.data();
+                container.innerHTML += `
+                    <div class="flex justify-between items-center bg-slate-800/50 p-2 rounded-lg border border-slate-700">
+                        <span class="text-xs truncate max-w-[150px]">${d.title}</span>
+                        <button onclick="deleteNote('${item.id}')" class="text-[10px] bg-red-900/30 text-red-400 px-3 py-1 rounded-md border border-red-900/50 hover:bg-red-800 transition">حذف</button>
+                    </div>
+                `;
+            });
+        }
+
+        // حفظ نص جديد
         window.saveNote = async () => {
-            const data = {
-                title: document.getElementById('titleInput').value,
-                desc: document.getElementById('descInput').value,
-                content: document.getElementById('contentInput').value,
-                created: new Date().toLocaleDateString('ar-SA')
-            };
-            const docRef = await addDoc(colRef, data);
-            document.getElementById('finalLink').value = window.location.href.split('#')[0] + "#" + docRef.id;
-            document.getElementById('linkOutput').classList.remove('hidden');
+            const title = document.getElementById('titleInput').value;
+            const desc = document.getElementById('descInput').value;
+            const content = document.getElementById('contentInput').value;
+
+            if(!title || !content) return alert("البيانات ناقصة!");
+
+            const docRef = await addDoc(colRef, { title, desc, content, date: Date.now() });
+            
+            // تصفير الخانات
+            document.getElementById('titleInput').value = '';
+            document.getElementById('descInput').value = '';
+            document.getElementById('contentInput').value = '';
+
+            // إظهار الرابط الجديد
+            const link = window.location.origin + window.location.pathname + "#" + docRef.id;
+            document.getElementById('finalLink').value = link;
+            document.getElementById('successArea').classList.remove('hidden');
+            refreshDeleteList();
         };
 
-        window.deleteNote = async () => {
-            const id = document.getElementById('deleteId').value;
-            if(confirm("متأكد؟")) {
+        window.deleteNote = async (id) => {
+            if(confirm("سيتم الحذف نهائياً، هل أنت متأكد؟")) {
                 await deleteDoc(doc(db, "notes", id));
-                location.reload();
+                refreshDeleteList();
             }
         };
 
-        const loadContent = async () => {
+        // عرض المحتوى عند وجود رابط
+        async function init() {
             const id = window.location.hash.substring(1);
-            if(id) {
+            if(id && id.length > 5) {
                 const snap = await getDoc(doc(db, "notes", id));
                 if(snap.exists()) {
-                    const d = snap.data();
-                    document.getElementById('noteTitle').innerText = d.title;
-                    document.getElementById('noteDesc').innerText = d.desc;
-                    document.getElementById('noteContent').innerText = d.content;
-                    document.getElementById('noteDate').innerText = d.created;
+                    const data = snap.data();
+                    document.getElementById('noteTitle').innerText = data.title;
+                    document.getElementById('noteDesc').innerHTML = linkify(data.desc || "");
+                    document.getElementById('noteContent').innerText = data.content;
                     document.getElementById('contentView').classList.remove('hidden');
-                    document.getElementById('welcomeView').classList.add('hidden');
-                    document.getElementById('deleteId').value = id;
                 }
             }
+        }
+
+        window.copyContent = (elementId) => {
+            const el = document.getElementById(elementId);
+            const text = el.tagName === 'INPUT' ? el.value : el.innerText;
+            navigator.clipboard.writeText(text);
+            alert("تم النسخ بنجاح! ✅");
         };
 
-        window.copyContent = () => {
-            navigator.clipboard.writeText(document.getElementById('noteContent').innerText);
-            alert("تم النسخ ✅");
-        };
-
-        loadContent();
+        init();
         window.onhashchange = () => location.reload();
     </script>
 </body>
